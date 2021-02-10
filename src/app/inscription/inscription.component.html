@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="register-box">
+    <div class="register-box-body">
+
+      <p class="register-box-msg">INSCRIVEZ-VOUS</p>
+      <form  [formGroup]="inscriptionFormGroup" (ngSubmit)="inscription()">
+        <div class="form-group has-feedback">
+
+          <input type="text" formControlName="name" placeholder="Nom" class="form-control" id="name" maxlength="80" size="30">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div class="text-center">
+            <span *ngIf="submitted && f.name.errors">
+              <font color="red">
+                {{ f.name.errors.required ? 'Ce champ est requis.' : f.name.errors.name ? 'Ce champ à une limite de 30 caractères maximum.' : '' }}
+              </font>
+            </span>
+          </div>
+        </div>
+    
+
+        <div class="form-group has-feedback">
+          <input type="text" formControlName="firstname" value="" placeholder="Prenom" class="form-control" id="firstname" maxlength="80" size="30">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div class="text-center">
+            <span *ngIf="submitted && f.firstname.errors">
+              <font color="red">
+                {{ f.firstname.errors.required ? 'Ce champ est requis.' : f.firstname.errors.firstname ? 'Ce champ à une limite de 30 caractères maximum.' : '' }}
+              </font>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="email" formControlName="email" value="" placeholder="Email" class="form-control" id="email" maxlength="80" size="30"> 
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div class="text-center">
+            <span *ngIf="submitted && f.email.errors">
+              <font color="red">
+                {{ f.email.errors.required ? 'Ce champ est requis.' : f.email.errors.email ? 'Ce champ à une limite de 30 caractères maximum.' : '' }}
+              </font>
+            </span>
+          </div>
+        </div>
+
+
+        <div class="form-group has-feedback">
+          <input type="password" formControlName="password" value="" placeholder="Mot de passe" class="form-control" id="password" size="30">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div class="text-center">
+            <span *ngIf="submitted && f.password.errors">
+              <font color="red">
+                {{ f.password.errors.required ? 'Ce champ est requis.' : '' }}
+              </font>
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="submitText != ''" class="alert alert-primary" role="alert">
+          {{ submitText }}
+        </div>
+        <div class="row button-center">
+          <div class="col-xs-4">
+            <input type="submit" name="submit" value="S'inscrire" id="submit" class="btn btn-primary btn-block btn-flat">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+    

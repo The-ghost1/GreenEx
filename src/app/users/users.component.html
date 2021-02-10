@@ -1,0 +1,79 @@
+<!-- Button trigger modal -->
+<button type="button" data-bs-toggle="modal" data-bs-target="#userModal" class="btn btn-primary">
+Créer utilisateur
+</button>
+
+<table class="table">
+	<thead>
+	  <tr>
+	    <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénoms</th>
+	    <th scope="col">Email</th>
+	    <th scope="col">Role</th>
+	    <th scope="col">Actions</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr *ngFor="let user of users; let i = index">
+	    <th scope="row">{{ i + 1 }}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ user.firstname }}</td>
+	    <td>{{ user.email }}</td>
+	    <td>{{ user.role }}</td>
+	    <td>
+	      <div *ngIf="user.role !== 'admin'" class="btn-group" role="group" aria-label="Basic example">
+	        <button type="button" (click)="setValeurUtilisateur(user)" data-bs-toggle="modal" data-bs-target="#userModal" class="btn btn-primary">Modifier</button>
+	        <button type="button" (click)="supprimerUtilisateur(user)" class="btn btn-primary">Supprimer</button>
+	      </div>
+	    </td>
+	  </tr>
+	</tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">{{ action === "creation" ? 'Créer' : 'Modifier' }} un utilisateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" (change)="getValues($event)" value="{{ name }}" placeholder="Nom" name="name" aria-label="name" aria-describedby="basic-addon1">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" (change)="getValues($event)" value="{{ firstname }}" placeholder="Prénoms" name="firstname" aria-label="firstname" aria-describedby="basic-addon1">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="email" class="form-control" (change)="getValues($event)" value="{{ email }}" placeholder="Email" name="email" aria-label="email" aria-describedby="basic-addon1">
+          </div>
+
+          <div *ngIf="action === 'creation'" class="input-group mb-3">
+            <input type="password" class="form-control" (change)="getValues($event)" placeholder="Mot de passe" name="password" aria-label="password" aria-describedby="basic-addon2">
+          </div>
+
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+            <select (change)="getValues($event)" value="{{ role }}" name="role" class="form-select" id="inputGroupSelect01">
+              <option selected>Choisir</option>
+              <option value="admin">Super Admin</option>
+              <option value="collaborator">Client</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" (click)="action === 'creation' ? creerUtilisateur() : modifierUtilisateur(user)" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
